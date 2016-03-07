@@ -53,7 +53,7 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
         RemoteViews view = new RemoteViews(mContext.getPackageName(),
                 R.layout.widget_collection_item);
         view.setTextViewText(R.id.stock_symbol, mCollection.get(position).getSymbol());
-        view.setTextViewText(R.id.change, mCollection.get(position).getChange());
+        view.setTextViewText(R.id.change, mCollection.get(position).getPercentChange());
         return view;
     }
 
@@ -84,27 +84,28 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
         try {
             Cursor c = mContext.getContentResolver().query(
                     QuoteProvider.Quotes.CONTENT_URI,
-                    new String[] { QuoteColumns.SYMBOL, QuoteColumns.CHANGE,
-                            QuoteColumns.PERCENT_CHANGE, QuoteColumns._ID },
+                    new String[]{QuoteColumns.SYMBOL, QuoteColumns.CHANGE,
+                            QuoteColumns.PERCENT_CHANGE, QuoteColumns._ID},
                     null,
                     null,
-                    null
+                    QuoteColumns.SYMBOL + " ASC, " + QuoteColumns._ID + " DESC"
             );
             int symbolIndex = c.getColumnIndex(QuoteColumns.SYMBOL);
             int changeIndex = c.getColumnIndex(QuoteColumns.CHANGE);
             int changePercentIndex = c.getColumnIndex(QuoteColumns.PERCENT_CHANGE);
-            int idIndex = c.getColumnIndex(QuoteColumns._ID);
 
             if (c.getCount() != 0) {
+                String symbol = "";
                 while (c.moveToNext()) {
-                    // Gets the value from the column.
-                    String symbol = c.getString(symbolIndex);
-                    String change = c.getString(changeIndex);
-                    String percentChange = c.getString(changePercentIndex);
-                    String id = c.getString(idIndex);
-                    StockWidgetItem stock = new StockWidgetItem(symbol, change, percentChange, id);
-                    mCollection.add(stock);
-                    Log.d(LOG_TAG, "c.moveToNext() " + stock);
+                    if (!symbol.equals(c.getString(symbolIndex))) {
+                        // Gets the value from the column.
+                        symbol = c.getString(symbolIndex);
+                        StockWidgetItem stock = new StockWidgetItem(symbol,
+                                c.getString(changeIndex),
+                                c.getString(changePercentIndex));
+                        mCollection.add(stock);
+                        Log.d(LOG_TAG, "c.moveToNext() " + stock);
+                    }
                 }
             }
         } finally {

@@ -7,21 +7,11 @@ public class StockWidgetItem {
     private String symbol;
     private String change;
     private String percentChange;
-    private String id;
 
-    public StockWidgetItem(String symbol, String change, String percentChange, String id) {
+    public StockWidgetItem(String symbol, String change, String percentChange) {
         this.symbol = symbol;
         this.change = change;
         this.percentChange = percentChange;
-        this.id = id;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getSymbol() {
@@ -54,7 +44,6 @@ public class StockWidgetItem {
                 "symbol='" + symbol + '\'' +
                 ", change='" + change + '\'' +
                 ", percentChange='" + percentChange + '\'' +
-                ", id='" + id + '\'' +
                 '}';
     }
 }
