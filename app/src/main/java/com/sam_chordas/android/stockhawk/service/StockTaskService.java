@@ -9,7 +9,6 @@ import android.database.DatabaseUtils;
 import android.os.Handler;
 import android.os.RemoteException;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.GcmTaskService;
@@ -119,7 +118,9 @@ public class StockTaskService extends GcmTaskService{
 
     if (urlStringBuilder != null){
       urlString = urlStringBuilder.toString();
-      try{
+      Log.d(LOG_TAG, "onRunTask urlString: " + urlString);
+
+        try{
         getResponse = fetchData(urlString);
         result = GcmNetworkManager.RESULT_SUCCESS;
         try {

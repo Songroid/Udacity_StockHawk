@@ -15,6 +15,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,6 +45,8 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
   /**
    * Used to store the last screen title. For use in {@link #restoreActionBar()}.
    */
+  private static String LOG_TAG = MyStocksActivity.class.getSimpleName();
+
   private CharSequence mTitle;
   private Intent mServiceIntent;
   private ItemTouchHelper mItemTouchHelper;
@@ -84,8 +87,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     recyclerView.addOnItemTouchListener(new RecyclerViewItemClickListener(this,
             new RecyclerViewItemClickListener.OnItemClickListener() {
               @Override public void onItemClick(View v, int position) {
-                //TODO:
-                // do something on item click
+                  Log.d(LOG_TAG, "onItemClick position: " + position);
               }
             }));
     recyclerView.setAdapter(mCursorAdapter);
