@@ -2,6 +2,7 @@ package com.sam_chordas.android.stockhawk.widget;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Binder;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -52,8 +53,19 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
     public RemoteViews getViewAt(int position) {
         RemoteViews view = new RemoteViews(mContext.getPackageName(),
                 R.layout.widget_collection_item);
-        view.setTextViewText(R.id.stock_symbol, mCollection.get(position).getSymbol());
-        view.setTextViewText(R.id.change, mCollection.get(position).getPercentChange());
+
+        StockWidgetItem stock = mCollection.get(position);
+
+        view.setTextViewText(R.id.stock_symbol, stock.getSymbol());
+        view.setTextViewText(R.id.change, stock.getPercentChange());
+
+        Log.d(LOG_TAG, "getViewAt IsUp: " + stock.getIsUp());
+        if (stock.getIsUp() == 1) {
+            view.setInt(R.id.change, "setBackgroundColor", Color.parseColor("#00C853"));
+        } else {
+            view.setInt(R.id.change, "setBackgroundColor", Color.parseColor("#D50000"));
+        }
+
         return view;
     }
 
@@ -85,7 +97,8 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
             Cursor c = mContext.getContentResolver().query(
                     QuoteProvider.Quotes.CONTENT_URI,
                     new String[]{QuoteColumns.SYMBOL, QuoteColumns.CHANGE,
-                            QuoteColumns.PERCENT_CHANGE, QuoteColumns._ID},
+                            QuoteColumns.PERCENT_CHANGE, QuoteColumns.ISUP,
+                            QuoteColumns._ID},
                     null,
                     null,
                     QuoteColumns.SYMBOL + " ASC, " + QuoteColumns._ID + " DESC"
@@ -93,6 +106,7 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
             int symbolIndex = c.getColumnIndex(QuoteColumns.SYMBOL);
             int changeIndex = c.getColumnIndex(QuoteColumns.CHANGE);
             int changePercentIndex = c.getColumnIndex(QuoteColumns.PERCENT_CHANGE);
+            int isUpIndex = c.getColumnIndex(QuoteColumns.ISUP);
 
             if (c.getCount() != 0) {
                 String symbol = "";
@@ -102,7 +116,8 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
                         symbol = c.getString(symbolIndex);
                         StockWidgetItem stock = new StockWidgetItem(symbol,
                                 c.getString(changeIndex),
-                                c.getString(changePercentIndex));
+                                c.getString(changePercentIndex),
+                                c.getInt(isUpIndex));
                         mCollection.add(stock);
                         Log.d(LOG_TAG, "c.moveToNext() " + stock);
                     }

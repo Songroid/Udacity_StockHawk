@@ -7,11 +7,13 @@ public class StockWidgetItem {
     private String symbol;
     private String change;
     private String percentChange;
+    private int isUp;
 
-    public StockWidgetItem(String symbol, String change, String percentChange) {
+    public StockWidgetItem(String symbol, String change, String percentChange, int isUp) {
         this.symbol = symbol;
         this.change = change;
         this.percentChange = percentChange;
+        this.isUp = isUp;
     }
 
     public String getSymbol() {
@@ -38,12 +40,21 @@ public class StockWidgetItem {
         this.percentChange = percentChange;
     }
 
+    public int getIsUp() {
+        return isUp;
+    }
+
+    public void setIsUp(int isUp) {
+        this.isUp = isUp;
+    }
+
     @Override
     public String toString() {
         return "StockWidgetItem{" +
                 "symbol='" + symbol + '\'' +
                 ", change='" + change + '\'' +
                 ", percentChange='" + percentChange + '\'' +
+                ", isUp=" + isUp +
                 '}';
     }
 }
