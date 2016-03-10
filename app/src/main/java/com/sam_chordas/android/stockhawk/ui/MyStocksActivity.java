@@ -164,7 +164,13 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     getLoaderManager().restartLoader(CURSOR_LOADER_ID, null, this);
   }
 
-  public void networkToast(){
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Utils.updateMyWidgets(this);
+    }
+
+    public void networkToast(){
     Toast.makeText(mContext, getString(R.string.network_toast), Toast.LENGTH_SHORT).show();
   }
 

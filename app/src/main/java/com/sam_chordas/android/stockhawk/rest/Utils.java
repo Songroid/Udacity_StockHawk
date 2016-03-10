@@ -1,14 +1,20 @@
 package com.sam_chordas.android.stockhawk.rest;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.ContentProviderOperation;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
+import com.sam_chordas.android.stockhawk.widget.QuoteWidgetProvider;
+
 import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -121,5 +127,15 @@ public class Utils {
 
     private static boolean isStringNull(String input) {
         return input.equals(NULL);
+    }
+
+    public static void updateMyWidgets(Context context) {
+        AppWidgetManager man = AppWidgetManager.getInstance(context);
+        int[] ids = man.getAppWidgetIds(
+                new ComponentName(context, QuoteWidgetProvider.class));
+        Intent updateIntent = new Intent();
+        updateIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        updateIntent.putExtra(QuoteWidgetProvider.WIDGET_IDS_KEY, ids);
+        context.sendBroadcast(updateIntent);
     }
 }

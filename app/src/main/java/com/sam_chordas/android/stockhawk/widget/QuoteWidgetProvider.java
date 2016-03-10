@@ -16,7 +16,8 @@ import com.sam_chordas.android.stockhawk.ui.MyStocksActivity;
  */
 public class QuoteWidgetProvider extends AppWidgetProvider {
 
-    public static String ACTION_WIDGET_GO_HOME = "ActionGoHome";
+    public static final String ACTION_WIDGET_GO_HOME = "ActionGoHome";
+    public static final String WIDGET_IDS_KEY ="QuoteWidgetProviderWidgetIds";
 
     private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                         int appWidgetId) {
@@ -28,7 +29,7 @@ public class QuoteWidgetProvider extends AppWidgetProvider {
         views.setOnClickPendingIntent(R.id.widget, actionPendingIntent);
 
         setRemoteAdapter(context, views);
-        appWidgetManager.updateAppWidget(appWidgetId, views);
+            appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
     @Override
@@ -46,6 +47,9 @@ public class QuoteWidgetProvider extends AppWidgetProvider {
             Intent i = new Intent(context, MyStocksActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(i);
+        } else if (intent.hasExtra(WIDGET_IDS_KEY)) {
+            int[] ids = intent.getExtras().getIntArray(WIDGET_IDS_KEY);
+            this.onUpdate(context, AppWidgetManager.getInstance(context), ids);
         } else {
             super.onReceive(context, intent);
         }
