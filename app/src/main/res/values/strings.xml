@@ -12,5 +12,6 @@
   <string name="widget_title">Today\'s Market</string>
   <string name="network_toast">Uh-oh! This app requires an internet connection</string>
     <string name="stock_not_existed">No results found</string>
+    <string name="fab_button">Add new stock</string>
 
 </resources>
