@@ -25,6 +25,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
+import com.sam_chordas.android.stockhawk.rest.Constants;
 import com.sam_chordas.android.stockhawk.rest.QuoteCursorAdapter;
 import com.sam_chordas.android.stockhawk.rest.RecyclerViewItemClickListener;
 import com.sam_chordas.android.stockhawk.rest.Utils;
@@ -89,6 +90,11 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
               @Override public void onItemClick(View v, int position) {
                   Log.d(LOG_TAG, "onItemClick position: " + position);
                   Intent intent = new Intent(MyStocksActivity.this, StockDetailActivity.class);
+                  if (mCursor.moveToPosition(position)) {
+                      String symbol = mCursor.getString(mCursor.getColumnIndex("symbol"));
+                      Log.d(LOG_TAG, "stock symbol clicked: " + symbol);
+                      intent.putExtra(Constants.SYMBOL, symbol);
+                  }
                   startActivity(intent);
               }
             }));

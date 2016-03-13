@@ -27,6 +27,15 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".ui.StockDetailActivity"
+            android:parentActivityName=".ui.MyStocksActivity"
+            android:label="@string/title_activity_stock_detail">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.MyStocksActivity" />
+        </activity>
+
         <service
             android:name=".service.StockTaskService"
             android:exported="true"
@@ -59,11 +68,6 @@
             android:name=".widget.QuoteWidgetRemoteViewsService"
             android:exported="false"
             android:permission="android.permission.BIND_REMOTEVIEWS"/>
-
-        <activity
-            android:name=".ui.StockDetailActivity"
-            android:label="@string/title_activity_stock_detail">
-        </activity>
     </application>
 
 </manifest>
