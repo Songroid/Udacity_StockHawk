@@ -1,6 +1,8 @@
 package com.sam_chordas.android.stockhawk.widget;
 
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Binder;
@@ -11,6 +13,8 @@ import android.widget.RemoteViewsService;
 import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
+import com.sam_chordas.android.stockhawk.rest.Constants;
+import com.sam_chordas.android.stockhawk.ui.MyStocksActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +69,8 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
         } else {
             view.setInt(R.id.change, "setBackgroundColor", Color.parseColor("#D50000"));
         }
+
+        view.setOnClickFillInIntent(R.id.widget_list_item, setUpIntent(stock.getSymbol()));
 
         return view;
     }
@@ -126,5 +132,11 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
         } finally {
             Binder.restoreCallingIdentity(token);
         }
+    }
+
+    private Intent setUpIntent(String symbol) {
+        Intent stockDetails = new Intent();
+        stockDetails.putExtra(Constants.SYMBOL, symbol);
+        return stockDetails;
     }
 }

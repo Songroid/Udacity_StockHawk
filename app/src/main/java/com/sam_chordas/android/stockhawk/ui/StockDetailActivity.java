@@ -11,6 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.db.chart.model.LineSet;
@@ -42,6 +45,9 @@ public class StockDetailActivity extends AppCompatActivity {
     private String endDate;
 
     private LineChartView mChart;
+    private TextView errorTextHolder;
+    private Button retryButton;
+
     private String[] mLabels;
     private float[] mValues;
 
@@ -56,9 +62,11 @@ public class StockDetailActivity extends AppCompatActivity {
         }
 
         mChart = (LineChartView) findViewById(R.id.linechart);
+        errorTextHolder = (TextView) findViewById(R.id.error);
+        retryButton = (Button) findViewById(R.id.error_button);
 
         getDates();
-        getPrices();
+        getPrices(null);
 
         Toast.makeText(this, R.string.showing_past_month_data, Toast.LENGTH_SHORT).show();
     }
@@ -103,7 +111,7 @@ public class StockDetailActivity extends AppCompatActivity {
         Log.d(TAG, "end date and start date: " + endDate + "/" + startDate);
     }
 
-    private void getPrices() {
+    public void getPrices(View view) {
         StringBuilder urlStringBuilder = new StringBuilder();
         try {
             urlStringBuilder.append("https://query.yahooapis.com/v1/public/yql?q=");
@@ -124,6 +132,7 @@ public class StockDetailActivity extends AppCompatActivity {
         new OkHttpClient().newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
+                showErrorComponents(true, e.getLocalizedMessage());
                 Log.d(TAG, e.getLocalizedMessage());
             }
 
@@ -131,7 +140,12 @@ public class StockDetailActivity extends AppCompatActivity {
             public void onResponse(Response response) throws IOException {
                 String data = response.body().string();
                 Log.d(TAG, data);
-                onProcessResponse(data);
+                if (response.isSuccessful()) {
+                    showErrorComponents(false, "");
+                    onProcessResponse(data);
+                } else {
+                    showErrorComponents(true, response.body().string());
+                }
             }
         });
 
@@ -182,6 +196,17 @@ public class StockDetailActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void showErrorComponents(final boolean on, final String msg) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                errorTextHolder.setText(msg);
+                errorTextHolder.setVisibility(on ? View.VISIBLE : View.GONE);
+                retryButton.setVisibility(on ? View.VISIBLE : View.GONE);
+            }
+        });
     }
 
 }

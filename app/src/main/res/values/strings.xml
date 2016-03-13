@@ -15,5 +15,6 @@
     <string name="fab_button">Add new stock</string>
     <string name="title_activity_stock_detail">Stock details</string>
     <string name="showing_past_month_data">Showing past month data</string>
+    <string name="retry_button">retry</string>
 
 </resources>

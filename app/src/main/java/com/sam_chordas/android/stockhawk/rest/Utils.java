@@ -128,14 +128,4 @@ public class Utils {
     private static boolean isStringNull(String input) {
         return input.equals(NULL);
     }
-
-    public static void updateMyWidgets(Context context) {
-        AppWidgetManager man = AppWidgetManager.getInstance(context);
-        int[] ids = man.getAppWidgetIds(
-                new ComponentName(context, QuoteWidgetProvider.class));
-        Intent updateIntent = new Intent();
-        updateIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-        updateIntent.putExtra(QuoteWidgetProvider.WIDGET_IDS_KEY, ids);
-        context.sendBroadcast(updateIntent);
-    }
 }

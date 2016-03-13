@@ -6,7 +6,18 @@
     <TextView
         android:id="@+id/error"
         android:visibility="gone"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/error_button"
+        android:onClick="getPrices"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/error"
+        android:text="@string/retry_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
