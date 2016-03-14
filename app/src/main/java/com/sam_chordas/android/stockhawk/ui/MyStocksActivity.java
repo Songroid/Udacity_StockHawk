@@ -20,6 +20,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.sam_chordas.android.stockhawk.R;
@@ -57,6 +58,9 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
   private Cursor mCursor;
   boolean isConnected;
 
+  private RecyclerView recyclerView;
+  private TextView emptyView;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -80,7 +84,9 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         networkToast();
       }
     }
-    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+    recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+    emptyView = (TextView) findViewById(R.id.empty_view);
+
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
 
@@ -100,6 +106,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
             }));
     recyclerView.setAdapter(mCursorAdapter);
 
+    showEmptyView();
 
     FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
     fab.attachToRecyclerView(recyclerView);
@@ -226,6 +233,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
   public void onLoadFinished(Loader<Cursor> loader, Cursor data){
     mCursorAdapter.swapCursor(data);
     mCursor = data;
+      showEmptyView();
   }
 
   @Override
@@ -233,4 +241,13 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     mCursorAdapter.swapCursor(null);
   }
 
+    private void showEmptyView() {
+        if (mCursor==null || mCursor.getCount() == 0) {
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+        }
+    }
 }
