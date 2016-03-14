@@ -2,6 +2,7 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/tools"
+    android:contentDescription="@string/home_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
@@ -12,12 +13,14 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
+            android:contentDescription="@string/stock_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
 
         <TextView
             android:id="@+id/empty_view"
+            android:contentDescription="@string/empty_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

@@ -17,5 +17,25 @@
     <string name="showing_past_month_data">Showing past month data</string>
     <string name="retry_button">retry</string>
     <string name="no_data_available">No data available</string>
+    <string name="stock_detail_page">Stock detail page</string>
+    <string name="detail_error_msg">Error in loading data</string>
+    <string name="retry_button_text">Retry button</string>
+    <string name="detail_chart_view">Detail chart view</string>
+    <string name="home_page">Home page</string>
+    <string name="stock_list">Stock list</string>
+    <string name="empty_view">Empty view</string>
+    <string name="single_stock">Quote single item</string>
+    <string name="stock_symbol">Stock symbol</string>
+    <string name="bid_price">Bid price</string>
+    <string name="stock_change">Stock change</string>
+    <string name="widget">Widget</string>
+    <string name="widget_title_bar">Widget title</string>
+    <string name="widget_list">Widget list</string>
+    <string name="widget_collection_item">Widget collection item</string>
+    <string name="widget_stock_symbol">Widget stock symbol</string>
+    <string name="widget_stock_change">Widget stock change</string>
+    <string name="widget_large_symbol">Widget large stock symbol</string>
+    <string name="widget_large_bid_price">Widget large bid price</string>
+    <string name="widget_large_stock_change">Widget large stock change</string>
 
 </resources>

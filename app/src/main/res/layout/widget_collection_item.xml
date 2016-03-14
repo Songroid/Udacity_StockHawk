@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
+             android:contentDescription="@string/widget_collection_item"
              android:id="@+id/widget_list_item"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
@@ -11,6 +12,7 @@
 
     <TextView
         android:id="@+id/stock_symbol"
+        android:contentDescription="@string/widget_stock_symbol"
         style="@style/StockSymbolTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,6 +23,7 @@
 
     <TextView
         android:id="@+id/change"
+        android:contentDescription="@string/widget_stock_change"
         style="@style/PercentChangeTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

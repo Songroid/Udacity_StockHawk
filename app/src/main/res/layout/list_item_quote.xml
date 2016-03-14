@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:contentDescription="@string/single_stock"
     android:layout_width="match_parent"
     android:layout_height="72dp"
     android:gravity="center_vertical"
@@ -10,6 +11,7 @@
     >
   <TextView
       android:id="@+id/stock_symbol"
+      android:contentDescription="@string/stock_symbol"
       style="@style/StockSymbolTextStyle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -24,6 +26,7 @@
       >
     <TextView
         android:id="@+id/bid_price"
+        android:contentDescription="@string/bid_price"
         style="@style/BidPriceTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,6 +37,7 @@
         />
     <TextView
         android:id="@+id/change"
+        android:contentDescription="@string/stock_change"
         android:background="@drawable/percent_change_pill"
         style="@style/PercentChangeTextStyle"
         android:layout_width="wrap_content"

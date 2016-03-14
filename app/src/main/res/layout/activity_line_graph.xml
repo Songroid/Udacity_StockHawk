@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:contentDescription="@string/stock_detail_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/error"
+        android:contentDescription="@string/detail_error_msg"
         android:visibility="gone"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_centerInParent="true"
@@ -13,6 +15,7 @@
 
     <Button
         android:id="@+id/error_button"
+        android:contentDescription="@string/retry_button_text"
         android:onClick="getPrices"
         android:visibility="gone"
         android:layout_centerHorizontal="true"
@@ -23,6 +26,7 @@
 
     <com.db.chart.view.LineChartView
         xmlns:chart="http://schemas.android.com/apk/res-auto"
+        android:contentDescription="@string/detail_chart_view"
         android:id="@+id/linechart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
